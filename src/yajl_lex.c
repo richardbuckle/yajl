@@ -514,7 +514,7 @@ yajl_lex_lex(yajl_lexer lexer, const unsigned char * jsonText,
                 startOffset++;
                 break;
             case 't': {
-                const char * want = "rue";
+                const unsigned char * want = (const unsigned char *)"rue";
                 do {
                     if (*offset >= jsonTextLen) {
                         tok = yajl_tok_eof;
@@ -532,7 +532,7 @@ yajl_lex_lex(yajl_lexer lexer, const unsigned char * jsonText,
                 goto lexed;
             }
             case 'f': {
-                const char * want = "alse";
+                const unsigned char * want = (const unsigned char *)"alse";
                 do {
                     if (*offset >= jsonTextLen) {
                         tok = yajl_tok_eof;
@@ -550,7 +550,7 @@ yajl_lex_lex(yajl_lexer lexer, const unsigned char * jsonText,
                 goto lexed;
             }
             case 'n': {
-                const char * want = "ull";
+                const unsigned char * want = (const unsigned char *)"ull";
                 do {
                     if (*offset >= jsonTextLen) {
                         tok = yajl_tok_eof;
@@ -605,6 +605,7 @@ yajl_lex_lex(yajl_lexer lexer, const unsigned char * jsonText,
                     yajl_buf_clear(lexer->buf);
                     lexer->bufInUse = 0;
                     startOffset = *offset; 
+                    (void)tok; // never read
                     break;
                 }
                 /* hit error or eof, bail */
